@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Find your citizenship test centre – Australia</title>
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://australian-citizenship-test.com/find-test-centre.html" />
+  <meta name="description"
+        content="Find official Australian citizenship test centres. View all Department of Home Affairs and Centrelink locations by state, city, or nearest centre." />
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Find your Australian citizenship test centre">
+  <meta property="og:description"
+        content="Interactive map and list of official Australian citizenship test centres. Search by state or city and find the closest location." />
+  <meta property="og:image" content="/assets/images/og-default.jpg">
+
+  <!-- GLOBAL -->
+  <link rel="stylesheet" href="/assets/css/shared.css" />
+  <link rel="stylesheet" href="/assets/css/abouttest.css" />
+
+  <!-- LEAFLET -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    /* ---------- HERO ---------- */
+    .testlocator-hero {
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1rem;
+    }
+
+    .testlocator-eyebrow {
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1f7a1f;
+      margin-bottom: 0.35rem;
+    }
+
+    .testlocator-hero h1 span {
+      background: linear-gradient(90deg, #1f7a1f, #ffb300);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .testlocator-note {
+      margin-top: 0.7rem;
+      font-size: 0.9rem;
+      color: #7a7483;
+    }
+
+    /* ---------- TOOLBAR ---------- */
+    .testlocator-map-section {
+      max-width: 1100px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1rem;
+    }
+
+    .testlocator-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      padding: 0.8rem;
+      border-radius: 14px;
+      background: linear-gradient(
+        90deg,
+        rgba(31,122,31,0.08),
+        rgba(255,179,0,0.08)
+      );
+      border: 1px solid rgba(31,122,31,0.25);
+      margin-bottom: 0.8rem;
+    }
+
+    .testlocator-select,
+    .testlocator-search {
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 0.45rem 0.85rem;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+
+    .testlocator-search {
+      flex: 1 1 200px;
+    }
+
+    .testlocator-button {
+      border-radius: 999px;
+      border: none;
+      padding: 0.5rem 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #1f7a1f;
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(31,122,31,0.3);
+    }
+
+    .testlocator-map {
+      width: 100%;
+      height: 420px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+    }
+
+    /* ---------- LIST ---------- */
+    .testlocator-list-section {
+      max-width: 1100px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+    }
+
+    .testlocator-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 1.2rem;
+    }
+
+    .testlocator-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.1rem;
+      border-left: 4px solid #1f7a1f;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .testlocator-card-title {
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .testlocator-card-meta {
+      font-size: 0.9rem;
+      color: #433f49;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="/index.html" class="brand-link">
+        <img src="/assets/images/au.svg" alt="Australia">
+        <div class="brand-title">Australian-Citizenship-Test.com</div>
+      </a>
+    </div>
+
+    <div class="header-center">
+      <nav class="header-nav">
+        <a href="/about-the-test.html">About the test</a>
+        <a href="/free-test.html">Free test</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://civiclearn.com/australia/login">Login</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="brand-powered">powered by <span>CivicLearn</span></div>
+      <a href="https://civiclearn.com/australia/checkout.html" class="btn-small-purple">
+        Get access
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="cl-main">
+
+  <section class="testlocator-hero">
+    <div class="testlocator-eyebrow">Test locator</div>
+    <h1>Find your <span>citizenship test centre</span></h1>
+    <p>
+      Australian citizenship tests are conducted at official Department of Home Affairs
+      and Centrelink locations across Australia.
+      Use the map, search by city, or filter by state to find a test centre near you.
+    </p>
+    <p class="testlocator-note">
+      Test dates and bookings are managed by the Department of Home Affairs.
+    </p>
+  </section>
+
+  <section class="testlocator-map-section">
+    <div class="testlocator-toolbar">
+
+      <select id="stateFilter" class="testlocator-select">
+        <option value="all">All states / territories</option>
+        <option value="ACT">ACT</option>
+        <option value="NSW">NSW</option>
+        <option value="NT">NT</option>
+        <option value="QLD">QLD</option>
+        <option value="SA">SA</option>
+        <option value="TAS">TAS</option>
+        <option value="VIC">VIC</option>
+        <option value="WA">WA</option>
+      </select>
+
+      <input id="searchInput"
+             class="testlocator-search"
+             type="text"
+             placeholder="Search by city or address…" />
+
+      <button id="nearestBtn" class="testlocator-button">
+        Find nearest centre
+      </button>
+    </div>
+
+    <div id="map" class="testlocator-map"></div>
+  </section>
+
+  <section class="testlocator-list-section">
+    <h2>All test centres</h2>
+    <div id="centreList" class="testlocator-cards"></div>
+  </section>
+
+</main>
+
+<footer class="cl-footer">
+  <div class="cl-footer-inner">
+    © 2025 <span class="cl-footer-brand">CivicLearn</span> by Testrada — All rights reserved.
+  </div>
+</footer>
+
+<script>
+let map, markers = [];
+let centres = [];
+
+map = L.map("map").setView([-25.5, 134], 4);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "© OpenStreetMap"
+}).addTo(map);
+
+fetch("/assets/data/testcentres_geocoded.json")
+  .then(r => r.json())
+  .then(data => {
+    centres = data;
+    render();
+  });
+
+function render() {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+
+  const state = stateFilter.value;
+  const q = searchInput.value.toLowerCase();
+
+  const filtered = centres.filter(c =>
+    (state === "all" || c.state === state) &&
+    (c.city.toLowerCase().includes(q) || c.address.toLowerCase().includes(q))
+  );
+
+  centreList.innerHTML = "";
+
+  filtered.forEach(c => {
+    const card = document.createElement("div");
+    card.className = "testlocator-card";
+    card.innerHTML = `
+      <div class="testlocator-card-title">${c.name}</div>
+      <div class="testlocator-card-meta">${c.address}</div>
+    `;
+    centreList.appendChild(card);
+
+    if (c.lat && c.lng) {
+      const m = L.marker([c.lat, c.lng]).addTo(map);
+      m.bindPopup(`<strong>${c.name}</strong><br>${c.address}`);
+      markers.push(m);
+    }
+  });
+}
+
+stateFilter.onchange = searchInput.oninput = render;
+
+nearestBtn.onclick = () => {
+  navigator.geolocation.getCurrentPosition(pos => {
+    map.setView([pos.coords.latitude, pos.coords.longitude], 9);
+  });
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- SEO FOR HUB PAGE -->
+  <title>Articles – Australian Citizenship Test Preparation</title>
+
+  <meta name="description"
+        content="In-depth articles covering Australian values, government, history, citizenship and everyday life. Ideal preparation for the Australian citizenship test.">
+
+  <link rel="canonical" href="https://australian-citizenship-test.com/articles/index.html">
+
+  <!-- OPEN GRAPH -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Articles – Australian Citizenship Test Preparation">
+  <meta property="og:description" content="A structured collection of articles covering all major topics of the Australian citizenship test.">
+  <meta property="og:image" content="https://australian-citizenship-test.com/assets/images/articles/hero-articles.webp">
+  <meta property="og:url" content="https://australian-citizenship-test.com/articles/index.html">
+  <meta property="og:site_name" content="Australian-Citizenship-Test.com">
+
+  <!-- TWITTER -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Articles – Australian Citizenship Test Preparation">
+  <meta name="twitter:description" content="Clear, exam-focused articles for Australian citizenship candidates.">
+  <meta name="twitter:image" content="https://australian-citizenship-test.com/assets/images/articles/hero-articles.webp">
+
+  <!-- STYLES -->
+  <link rel="stylesheet" href="/assets/css/shared.css">
+  <link rel="stylesheet" href="/assets/css/blog.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <div class="header-left">
+      <a href="/index.html" class="brand-link">
+        <img src="/assets/images/au.svg" alt="Australia">
+        <div class="brand-title">Australian-Citizenship-Test.com</div>
+      </a>
+    </div>
+
+    <div class="header-center">
+      <nav class="header-nav">
+        <a href="/about-the-test.html">About the test</a>
+        <a href="/free-test.html">Free test</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://civiclearn.com/australia/login">Login</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="brand-powered">
+        powered by <span>CivicLearn</span>
+      </div>
+      <a href="https://civiclearn.com/australia/checkout.html" class="btn-small-purple">
+        Get access
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="articles-hero">
+  <h1>Articles for the Australian Citizenship Test</h1>
+  <p class="articles-hero-subtitle">
+    Clear, structured articles covering Australian values, government, history,
+    citizenship and everyday life — written specifically for the citizenship test.
+  </p>
+  <a href="https://civiclearn.com/australia/checkout.html" class="cta-purple">
+    Start your preparation
+  </a>
+</section>
+
+<!-- FEATURED ARTICLE -->
+<section class="featured-article">
+  <h2>Featured article</h2>
+
+  <a id="featured-card" class="featured-card" href="#">
+    <div class="featured-card-image">
+      <img id="featured-image" src="" alt="">
+    </div>
+    <div class="featured-card-content">
+      <h3 id="featured-title"></h3>
+      <p id="featured-desc"></p>
+      <span class="featured-read-more">Read article →</span>
+    </div>
+  </a>
+</section>
+
+<!-- ALL ARTICLES GRID -->
+<section class="articles-grid-section">
+  <h2>All articles</h2>
+  <div class="articles-grid" id="articlesGrid"></div>
+</section>
+
+<!-- CTA BOTTOM -->
+<section class="articles-cta-bottom">
+  <h3>Want to pass the citizenship test on your first attempt?</h3>
+  <p>
+    Access full simulations, targeted practice and detailed explanations
+    aligned with official test content.
+  </p>
+  <a href="https://civiclearn.com/australia/checkout.html" class="cta-purple">
+    Get full access
+  </a>
+</section>
+
+<footer class="cl-footer">
+  <div class="cl-footer-inner">
+    © <span id="footer-year"></span>
+    <span class="cl-footer-brand">CivicLearn</span> by Testrada — All rights reserved.
+  </div>
+</footer>
+
+<!-- FEATURED ROTATION -->
+<script>
+(async function () {
+  const res = await fetch('/articles/articles.json');
+  const all = await res.json();
+
+  const dayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+  const index = dayIndex % all.length;
+  const a = all[index];
+
+  document.getElementById("featured-card").href = a.url;
+  document.getElementById("featured-image").src = a.image;
+  document.getElementById("featured-image").alt = a.title;
+  document.getElementById("featured-title").textContent = a.title;
+  document.getElementById("featured-desc").textContent = a.desc;
+})();
+</script>
+
+<!-- GRID POPULATION -->
+<script>
+(async function () {
+  const grid = document.getElementById("articlesGrid");
+  if (!grid) return;
+
+  const res = await fetch('/articles/articles.json');
+  const all = await res.json();
+
+  all.sort((a, b) => a.title.localeCompare(b.title));
+
+  grid.innerHTML = all.map(a => `
+    <a href="${a.url}" class="blog-card">
+      <img src="${a.image}" alt="${a.title}">
+      <div class="blog-card-body">
+        <h3>${a.title}</h3>
+        <p>${a.desc}</p>
+      </div>
+    </a>
+  `).join('');
+})();
+</script>
+
+<script>
+  document.getElementById("footer-year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

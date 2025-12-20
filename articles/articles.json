@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Australian Values and Democratic Beliefs",
+    "desc": "Freedom, equality, respect and democratic principles you must understand for the citizenship test.",
+    "url": "/articles/australian-values-and-democratic-beliefs.html",
+    "image": "/assets/images/articles/australian-values.webp"
+  },
+  {
+    "title": "The Australian System of Government",
+    "desc": "How Australia is governed: constitutional monarchy, federal system and separation of powers.",
+    "url": "/articles/the-australian-system-of-government.html",
+    "image": "/assets/images/articles/australian-government.webp"
+  },
+  {
+    "title": "The Australian Constitution and the Rule of Law",
+    "desc": "The highest law in Australia and how it guarantees equality before the law.",
+    "url": "/articles/the-australian-constitution-and-the-rule-of-law.html",
+    "image": "/assets/images/articles/australian-constitution.webp"
+  },
+  {
+    "title": "The Role of the Prime Minister, Ministers and Parliament",
+    "desc": "Who leads Australia, how parliament works, and how laws are made.",
+    "url": "/articles/the-role-of-the-prime-minister-ministers-and-parliament.html",
+    "image": "/assets/images/articles/prime-minister-parliament.webp"
+  },
+  {
+    "title": "Voting in Australia: Rights and Responsibilities",
+    "desc": "Compulsory voting, enrolment, secret ballots, elections and referendums.",
+    "url": "/articles/voting-in-australia-rights-and-responsibilities.html",
+    "image": "/assets/images/articles/voting-in-australia.webp"
+  },
+  {
+    "title": "Australian History: From Indigenous Cultures to Federation",
+    "desc": "Key historical events from the first Australians to Federation in 1901.",
+    "url": "/articles/australian-history-from-indigenous-cultures-to-federation.html",
+    "image": "/assets/images/articles/australian-history.webp"
+  },
+  {
+    "title": "Aboriginal and Torres Strait Islander Peoples",
+    "desc": "The first peoples of Australia, their cultures, connection to land and ongoing significance.",
+    "url": "/articles/aboriginal-and-torres-strait-islander-peoples.html",
+    "image": "/assets/images/articles/indigenous-australians.webp"
+  },
+  {
+    "title": "Australian Citizenship: Rights, Responsibilities and the Pledge",
+    "desc": "What citizenship means, what citizens can do, and what is expected of them.",
+    "url": "/articles/australian-citizenship-rights-responsibilities-and-the-pledge.html",
+    "image": "/assets/images/articles/australian-citizenship.webp"
+  },
+  {
+    "title": "Life in Australia: Laws, Services and Everyday Rules",
+    "desc": "Everyday life in Australia: laws, healthcare, education, work and social expectations.",
+    "url": "/articles/life-in-australia-laws-services-and-everyday-rules.html",
+    "image": "/assets/images/articles/life-in-australia.webp"
+  },
+  {
+    "title": "Australian Symbols, National Days and Traditions",
+    "desc": "The flag, coat of arms, national anthem, Australia Day, ANZAC Day and traditions.",
+    "url": "/articles/australian-symbols-national-days-and-traditions.html",
+    "image": "/assets/images/articles/australian-symbols.webp"
+  }
+]

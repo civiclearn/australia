@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free practice test – Australian Citizenship Test | Australian-Citizenship-Test.com</title>
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://australian-citizenship-test.com/free-test.html" />
+
+  <meta name="description"
+        content="Take a free Australian Citizenship Test practice quiz with 25 challenging multiple-choice questions and a 30-minute timer. Instant score, pass/fail result, and a full summary chart." />
+
+  <meta name="keywords"
+        content="free Australian citizenship test, Australian citizenship test practice, citizenship test Australia free quiz, Australian values questions, practice exam Australia, citizenship test questions" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free practice test – Australian Citizenship Test (25 questions)" />
+  <meta property="og:description"
+        content="Try a free 25-question practice test with a 30-minute timer. Get an instant score, pass/fail result and a complete summary chart." />
+  <meta property="og:url" content="https://australian-citizenship-test.com/free-test.html" />
+  <meta property="og:image" content="https://australian-citizenship-test.com/assets/images/og-default.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free practice test – Australian Citizenship Test" />
+  <meta name="twitter:description"
+        content="Practise with 25 challenging questions and a 30-minute time limit. Get an instant result and score breakdown." />
+  <meta name="twitter:image" content="https://australian-citizenship-test.com/assets/images/og-default.jpg" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/shared.css">
+  <link rel="stylesheet" href="/assets/css/testpages.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="/index.html" class="brand-link">
+        <img src="/assets/images/au.svg" alt="Australia">
+        <div class="brand-title">Australian-Citizenship-Test.com</div>
+      </a>
+    </div>
+
+    <div class="header-center">
+      <nav class="header-nav">
+        <a href="/free-test.html">Free test</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://civiclearn.com/australia/login">Login</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="brand-powered">
+        powered by <span>CivicLearn</span>
+      </div>
+      <a href="https://civiclearn.com/australia/checkout.html" class="btn-small-purple">Get full access</a>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+<section class="free-test-intro">
+  <p>
+    This free Australian citizenship practice test helps you familiarise yourself
+    with the types of questions asked in the official citizenship test conducted
+    by the Department of Home Affairs.
+  </p>
+
+  <p>
+    The questions are based on Australian values, democratic beliefs, government,
+    history and everyday life — the same core topics covered in the real test.
+    Use this free test to assess your current level and identify areas
+    that need further preparation.
+  </p>
+
+  <p>
+    No registration is required. You can start immediately and retake the free test
+    as many times as you like.
+  </p>
+</section>
+
+  <div class="test-header">
+    <div>
+      <div class="badge">Free test – 25 questions</div>
+      <div class="progress" id="progressLabel">Question 1 of 25 · Score 0</div>
+    </div>
+    <div class="timer badge" id="timer">30:00</div>
+  </div>
+
+  <div class="question-card">
+    <div class="q-title" id="qTitle">…</div>
+    <div class="choices" id="choices"></div>
+
+    <div class="controls">
+      <button class="btn secondary" id="btnPrev" disabled>← Previous</button>
+      <button class="btn" id="btnNext" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultPanel" class="result-panel" style="display:none;">
+    <h2>Test result</h2>
+    <div id="gradeStamp" class="result-stamp"></div>
+    <p id="resultText" class="result-text"></p>
+
+    <div class="result-chart-container">
+      <canvas id="resultChart"></canvas>
+    </div>
+
+    <div class="cta">
+      <a href="https://civiclearn.com/australia/checkout.html" class="btn">
+        Get full access to all practice tests
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="cl-footer">
+  <div class="cl-footer-inner">
+    © 2025 <span class="cl-footer-brand">CivicLearn</span> — All rights reserved.
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- JAVASCRIPT – fixed set of 25 questions (AU); first answer is the correct one -->
+<script>
+const QUESTIONS = [
+  {
+    "q": "Is voting compulsory in Australian federal and state or territory elections?",
+    "a": [
+      "Yes",
+      "No, it is voluntary",
+      "Only during referendums"
+    ]
+  },
+  {
+    "q": "What happens to a Bill after it is approved by both Houses of Parliament?",
+    "a": [
+      "It is signed by the Governor-General",
+      "It is sent to a referendum",
+      "It is implemented immediately"
+    ]
+  },
+  {
+    "q": "How is Australia divided for elections to the House of Representatives?",
+    "a": [
+      "Into federal electorates",
+      "Into local councils",
+      "Into regions"
+    ]
+  },
+  {
+    "q": "What constitutional power do Australian states have?",
+    "a": [
+      "The power to pass laws in their own right",
+      "The power to collect taxes",
+      "The power to conduct elections"
+    ]
+  },
+  {
+    "q": "What percentage of Australians voted ‘Yes’ in the 1967 referendum about Aboriginal people?",
+    "a": [
+      "More than 90 per cent",
+      "Just over 50 per cent",
+      "Less than 40 per cent"
+    ]
+  },
+  {
+    "q": "Do state and territory parliaments make laws in Australia?",
+    "a": [
+      "Yes, in areas not covered by federal law",
+      "No, only the federal parliament can make laws",
+      "Only states do"
+    ]
+  },
+  {
+    "q": "Which traditions influence Australia’s system of government?",
+    "a": [
+      "European Union traditions",
+      "United States traditions",
+      "Asian constitutional traditions"
+    ]
+  },
+  {
+    "q": "How many Houses does the Australian Parliament have?",
+    "a": [
+      "One",
+      "Two",
+      "Three"
+    ]
+  },
+  {
+    "q": "How many senators are elected by the Australian Capital Territory and the Northern Territory?",
+    "a": [
+      "Four each",
+      "Six each",
+      "One each"
+    ]
+  },
+  {
+    "q": "What is required for a constitutional change to be made in Australia?",
+    "a": [
+      "Approval by parliament only",
+      "A simple national majority",
+      "A majority in every state"
+    ]
+  },
+  {
+    "q": "What is an important feature of Australia’s democratic system of government?",
+    "a": [
+      "Regular elections",
+      "No written Constitution",
+      "Voting is not secret"
+    ]
+  },
+  {
+    "q": "What does it mean that Australians have a ‘responsibility to vote’?",
+    "a": [
+      "Eligible citizens must vote in elections",
+      "Only public servants must vote",
+      "Only property owners must vote"
+    ]
+  },
+  {
+    "q": "Which of the following is true about a secret ballot in Australia?",
+    "a": [
+      "It means your vote is private",
+      "It means you can vote more than once",
+      "It means voting is optional"
+    ]
+  },
+  {
+    "q": "Who may propose a new law in the Australian Parliament?",
+    "a": [
+      "Any member of Parliament",
+      "Only the Governor-General",
+      "Only the High Court"
+    ]
+  },
+  {
+    "q": "What is the role of the High Court of Australia?",
+    "a": [
+      "To interpret and apply the law, including the Constitution",
+      "To create new laws",
+      "To appoint ministers"
+    ]
+  },
+  {
+    "q": "What is the separation of powers in Australia?",
+    "a": [
+      "Law-making, law-executing and law-interpreting powers are separated",
+      "The Prime Minister controls all branches of government",
+      "Courts make laws when Parliament cannot"
+    ]
+  },
+  {
+    "q": "What is the role of the Governor-General in Australia?",
+    "a": [
+      "To represent the King of Australia in Australia",
+      "To lead the opposition",
+      "To write the Constitution"
+    ]
+  },
+  {
+    "q": "Which of these is a responsibility of Australian citizens?",
+    "a": [
+      "Serve on a jury if called",
+      "Join a political party",
+      "Vote only in local elections"
+    ]
+  },
+  {
+    "q": "Which level of government is responsible for postal services?",
+    "a": [
+      "Federal government",
+      "State and territory governments",
+      "Local government"
+    ]
+  },
+  {
+    "q": "Which level of government is responsible for roads, drains and waste collection?",
+    "a": [
+      "Local government",
+      "State and territory governments",
+      "Federal government"
+    ]
+  },
+  {
+    "q": "Who appoints the Governor-General of Australia?",
+    "a": [
+      "The King, on the advice of the Prime Minister",
+      "The Australian Parliament",
+      "The High Court of Australia"
+    ]
+  },
+  {
+    "q": "What is the legal age at which Australians can vote?",
+    "a": [
+      "18 years",
+      "16 years",
+      "21 years"
+    ]
+  },
+  {
+    "q": "What is required of a person at an Australian citizenship ceremony?",
+    "a": [
+      "To make the Australian Citizenship Pledge",
+      "To sign the Constitution",
+      "To pass another written test"
+    ]
+  },
+  {
+    "q": "What does ‘the rule of law’ mean in Australia?",
+    "a": [
+      "No one is above the law, including the government",
+      "Only citizens must follow the law",
+      "Courts can ignore Parliament"
+    ]
+  },
+  {
+    "q": "Which group is recognised as the first inhabitants of Australia?",
+    "a": [
+      "Aboriginal and Torres Strait Islander peoples",
+      "European settlers",
+      "Convicts from Britain"
+    ]
+  }
+];
+
+// Shuffle helper
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Build model: correct answer is stored, but choices are shuffled
+const model = QUESTIONS.map((item, idx) => {
+  const correct = item.a[0];
+  const shuffled = shuffle(item.a);
+  return {
+    index: idx,
+    text: item.q,
+    choices: shuffled.map(opt => ({ text: opt, isCorrect: opt === correct })),
+    answered: false,
+    pickedIndex: -1
+  };
+});
+
+const qTitle = document.getElementById('qTitle');
+const choicesEl = document.getElementById('choices');
+const btnPrev = document.getElementById('btnPrev');
+const btnNext = document.getElementById('btnNext');
+const progressLabel = document.getElementById('progressLabel');
+const resultPanel = document.getElementById('resultPanel');
+const gradeStamp = document.getElementById('gradeStamp');
+const resultText = document.getElementById('resultText');
+const timerEl = document.getElementById('timer');
+
+let qi = 0, score = 0;
+const total = model.length;
+
+// 30 minutes (same system as the Danish page)
+let timerSec = 30 * 60;
+
+const timerInt = setInterval(() => {
+  timerSec--;
+  if (timerSec < 0) {
+    clearInterval(timerInt);
+    finishTest();
+    return;
+  }
+  const m = Math.floor(timerSec / 60).toString().padStart(2, '0');
+  const s = (timerSec % 60).toString().padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+}, 1000);
+
+function renderQuestion() {
+  const q = model[qi];
+  qTitle.textContent = q.text;
+  choicesEl.innerHTML = '';
+  q.choices.forEach((c, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice' + (q.answered ? ' disabled' : '');
+    btn.textContent = c.text;
+    btn.addEventListener('click', () => pick(idx));
+    choicesEl.appendChild(btn);
+  });
+
+  btnPrev.disabled = (qi === 0);
+  btnNext.disabled = !q.answered;
+
+  progressLabel.textContent = `Question ${qi + 1} of ${total} · Score ${score}`;
+}
+
+function pick(choiceIndex) {
+  const q = model[qi];
+  if (q.answered) return;
+
+  q.answered = true;
+  q.pickedIndex = choiceIndex;
+
+  const picked = q.choices[choiceIndex];
+  if (picked && picked.isCorrect) score++;
+
+  const buttons = Array.from(choicesEl.querySelectorAll('button'));
+  buttons.forEach((b, idx) => {
+    b.classList.add('disabled');
+    b.disabled = true;
+
+    const isCorrect = q.choices[idx].isCorrect;
+    if (isCorrect) b.classList.add('correct');
+    if (idx === choiceIndex && !isCorrect) b.classList.add('wrong');
+  });
+
+  btnNext.disabled = false;
+  progressLabel.textContent = `Question ${qi + 1} of ${total} · Score ${score}`;
+}
+
+btnPrev.addEventListener('click', () => {
+  if (qi > 0) {
+    qi--;
+    renderQuestion();
+  }
+});
+
+btnNext.addEventListener('click', () => {
+  if (!model[qi].answered) return;
+
+  if (qi < total - 1) {
+    qi++;
+    renderQuestion();
+  } else {
+    finishTest();
+  }
+});
+
+function renderChart(correct, wrong) {
+  const ctx = document.getElementById('resultChart');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Correct', 'Incorrect'],
+      datasets: [{
+        data: [correct, wrong]
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { position: 'bottom' }
+      },
+      cutout: '65%'
+    }
+  });
+}
+
+function finishTest() {
+  clearInterval(timerInt);
+  document.querySelector('.question-card').style.display = 'none';
+  resultPanel.style.display = 'block';
+
+  const wrong = total - score;
+
+  // Same pass threshold as the Danish page: 20/25
+  const pass = score >= 20;
+
+  gradeStamp.textContent = pass ? "Passed!" : "Not passed";
+  gradeStamp.className = "result-stamp " + (pass ? "pass" : "fail");
+
+  resultText.textContent =
+    `Final score: ${score} / ${total} (${Math.round(score / total * 100)}%). ` +
+    `Correct: ${score}. Incorrect: ${wrong}.`;
+
+  renderChart(score, wrong);
+}
+
+renderQuestion();
+</script>
+
+</body>
+</html>
